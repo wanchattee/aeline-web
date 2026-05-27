@@ -6,13 +6,9 @@ export default function Footer() {
     <footer style={{ backgroundColor: "#F5F0E8", color: "#0A0A0A", borderTop: "1px solid #DDD5C5" }}>
 
       {/* ── Main content — 4-column refined ── */}
-      <div style={{
-        padding: "4.5rem 4rem 3.5rem",
-        display: "grid",
-        gridTemplateColumns: "1.4fr 1fr 1fr 1fr",
-        gap: "3rem",
-      }}
-        className="md:grid-cols-4 grid-cols-2"
+      <div
+        style={{ padding: "4rem clamp(1.5rem, 5vw, 4rem) 3rem" }}
+        className="grid grid-cols-2 md:grid-cols-[1.4fr_1fr_1fr_1fr] gap-x-6 gap-y-10 md:gap-12"
       >
 
         {/* Brand col */}
@@ -188,7 +184,7 @@ export default function Footer() {
       {/* ── Legal bottom bar — refined ── */}
       <div style={{
         borderTop: "1px solid #DDD5C5",
-        padding: "1.5rem 4rem",
+        padding: "1.5rem clamp(1.5rem, 5vw, 4rem)",
         display: "flex",
         flexDirection: "row",
         alignItems: "center",

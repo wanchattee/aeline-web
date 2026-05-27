@@ -14,7 +14,7 @@ export default function Header() {
     >
       {/* Main navigation — same 4rem padding as page content */}
       <nav
-        style={{ padding: "0.875rem 4rem" }}
+        style={{ padding: "0.875rem clamp(1rem, 4vw, 4rem)" }}
         className="flex items-center justify-between relative"
       >
         {/* Left nav */}
@@ -112,7 +112,7 @@ export default function Header() {
           style={{
             borderTop: "1px solid #E8E4DC",
             borderBottom: "1px solid #E8E4DC",
-            padding: "0.875rem 4rem",
+            padding: "0.875rem clamp(1rem, 4vw, 4rem)",
           }}
           className="flex items-center gap-3 animate-in slide-in-from-top duration-200"
         >
@@ -153,7 +153,7 @@ export default function Header() {
                 fontSize: "0.75rem",
                 letterSpacing: "0.15em",
                 borderBottom: "1px solid #E8E4DC",
-                padding: "1rem 4rem",
+                padding: "1rem clamp(1.5rem, 5vw, 4rem)",
               }}
               className="block uppercase font-medium hover:bg-stone-50 transition-colors"
             >

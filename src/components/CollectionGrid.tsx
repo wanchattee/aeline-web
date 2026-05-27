@@ -7,7 +7,7 @@ export default async function CollectionGrid() {
   const products = await getFeaturedProducts();
 
   return (
-    <section className="py-20" style={{ padding: "5rem 4rem" }}>
+    <section style={{ padding: "4rem clamp(1.5rem, 5vw, 4rem)" }}>
       {/* Section header */}
       <div
         style={{ borderTop: "1px solid #E8E4DC", borderBottom: "1px solid #E8E4DC" }}

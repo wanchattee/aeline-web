@@ -27,7 +27,7 @@ export default async function CollectionsPage({
       <main className="flex-1" style={{ paddingTop: "61px" }}>
         {/* Page title */}
         <div
-          style={{ borderBottom: "1px solid #E8E4DC", padding: "3rem 4rem 1.5rem" }}
+          style={{ borderBottom: "1px solid #E8E4DC", padding: "3rem clamp(1.5rem, 5vw, 4rem) 1.5rem" }}
         >
           <h1
             style={{ fontSize: "0.75rem", letterSpacing: "0.25em" }}
@@ -59,14 +59,14 @@ export default async function CollectionsPage({
         </div>
 
         {/* Results count */}
-        <div className="py-4" style={{ padding: "1rem 4rem" }}>
+        <div style={{ padding: "1rem clamp(1.5rem, 5vw, 4rem)" }}>
           <p style={{ fontSize: "0.688rem", letterSpacing: "0.1em", color: "#6B6B6B" }} className="uppercase">
             {filtered.length} {filtered.length === 1 ? "Item" : "Items"}
           </p>
         </div>
 
         {/* Product grid */}
-        <div className="pb-20" style={{ padding: "0 4rem 5rem" }}>
+        <div style={{ padding: "0 clamp(1.5rem, 5vw, 4rem) 4rem" }}>
           {filtered.length === 0 ? (
             <p className="text-center text-gray-400 py-32 text-sm tracking-widest uppercase">
               No products in this category
