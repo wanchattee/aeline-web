@@ -1,7 +1,6 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import CollectionGrid from "@/components/CollectionGrid";
-import BrandBanner from "@/components/BrandBanner";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -11,7 +10,6 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
         <CollectionGrid />
-        <BrandBanner />
       </main>
       <Footer />
     </>
