@@ -49,14 +49,14 @@ function ProductCard({ product }: { product: Product }) {
       {/* Image */}
       <div
         className="relative overflow-hidden mb-4"
-        style={{ aspectRatio: "3/4", backgroundColor: "#F5F0E8", padding: "1.5rem" }}
+        style={{ aspectRatio: "1/1", backgroundColor: "#FAF7F2" }}
       >
         <Image
           src={product.imageUrl}
           alt={product.name}
           fill
           className="object-contain transition-transform duration-500 ease-out group-hover:scale-105"
-          style={{ padding: "1rem" }}
+          style={{ padding: "0.5rem" }}
           sizes="(max-width: 768px) 50vw, 25vw"
           unoptimized={product.imageUrl.startsWith("https://drive.google.com") || product.imageUrl.startsWith("https://lh3") || product.imageUrl.startsWith("/images/products/")}
         />

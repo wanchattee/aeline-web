@@ -35,13 +35,13 @@ export default async function ProductPage({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
             {/* Image */}
-            <div className="relative" style={{ aspectRatio: "3/4", backgroundColor: "#F5F0E8", padding: "2.5rem" }}>
+            <div className="relative" style={{ aspectRatio: "1/1", backgroundColor: "#FAF7F2" }}>
               <Image
                 src={product.imageUrl}
                 alt={product.name}
                 fill
                 className="object-contain"
-                style={{ padding: "1.5rem" }}
+                style={{ padding: "1rem" }}
                 sizes="(max-width: 768px) 100vw, 50vw"
                 priority
                 unoptimized={product.imageUrl.startsWith("https://") || product.imageUrl.startsWith("/images/products/")}
