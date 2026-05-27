@@ -2,7 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import Link from "next/link";
-import { getProductBySlug, getAllProducts, formatPrice } from "@/lib/products";
+import { getProductBySlug, getAllProducts, formatProductPrice } from "@/lib/products";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
@@ -22,8 +22,8 @@ export default async function ProductPage({
   return (
     <>
       <Header />
-      <main className="flex-1" style={{ paddingTop: "97px" }}>
-        <div className="max-w-6xl mx-auto px-6 py-12">
+      <main className="flex-1" style={{ paddingTop: "61px" }}>
+        <div className="mx-auto py-12" style={{ maxWidth: "1152px", padding: "3rem 4rem" }}>
           {/* Breadcrumb */}
           <nav className="flex gap-2 mb-8" style={{ fontSize: "0.625rem", letterSpacing: "0.12em" }}>
             <Link href="/" className="text-gray-400 hover:text-black uppercase transition-colors">Home</Link>
@@ -35,15 +35,16 @@ export default async function ProductPage({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
             {/* Image */}
-            <div className="relative" style={{ aspectRatio: "3/4", backgroundColor: "#F5F0E8" }}>
+            <div className="relative" style={{ aspectRatio: "3/4", backgroundColor: "#F5F0E8", padding: "2.5rem" }}>
               <Image
                 src={product.imageUrl}
                 alt={product.name}
                 fill
-                className="object-cover"
+                className="object-contain"
+                style={{ padding: "1.5rem" }}
                 sizes="(max-width: 768px) 100vw, 50vw"
                 priority
-                unoptimized={product.imageUrl.startsWith("https://")}
+                unoptimized={product.imageUrl.startsWith("https://") || product.imageUrl.startsWith("/images/products/")}
               />
             </div>
 
@@ -61,7 +62,7 @@ export default async function ProductPage({
                 {product.name}
               </h1>
               <p style={{ fontSize: "1.25rem", color: "#1B4332", letterSpacing: "0.06em" }} className="font-semibold mb-6">
-                {formatPrice(product.price)}
+                {formatProductPrice(product)}
               </p>
 
               <div style={{ borderTop: "1px solid #E8E4DC", borderBottom: "1px solid #E8E4DC" }} className="py-6 mb-8">

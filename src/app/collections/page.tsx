@@ -2,7 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import Link from "next/link";
-import { getAllProducts, formatPrice } from "@/lib/products";
+import { getAllProducts, formatProductPrice } from "@/lib/products";
 import { Category, Product } from "@/lib/types";
 
 const CATEGORIES: Category[] = ["All", "Rings", "Necklaces", "Bracelets", "Earrings"];
@@ -24,11 +24,11 @@ export default async function CollectionsPage({
   return (
     <>
       <Header />
-      <main className="flex-1" style={{ paddingTop: "97px" }}>
+      <main className="flex-1" style={{ paddingTop: "61px" }}>
         {/* Page title */}
         <div
           style={{ borderBottom: "1px solid #E8E4DC" }}
-          className="px-6 pt-12 pb-6"
+          className="pt-12 pb-6" style={{ padding: "3rem 4rem 1.5rem" }}
         >
           <h1
             style={{ fontSize: "0.75rem", letterSpacing: "0.25em" }}
@@ -60,14 +60,14 @@ export default async function CollectionsPage({
         </div>
 
         {/* Results count */}
-        <div className="px-6 py-4">
+        <div className="py-4" style={{ padding: "1rem 4rem" }}>
           <p style={{ fontSize: "0.688rem", letterSpacing: "0.1em", color: "#6B6B6B" }} className="uppercase">
             {filtered.length} {filtered.length === 1 ? "Item" : "Items"}
           </p>
         </div>
 
         {/* Product grid */}
-        <div className="px-6 pb-20">
+        <div className="pb-20" style={{ padding: "0 4rem 5rem" }}>
           {filtered.length === 0 ? (
             <p className="text-center text-gray-400 py-32 text-sm tracking-widest uppercase">
               No products in this category
@@ -91,15 +91,16 @@ function CollectionProductCard({ product }: { product: Product }) {
     <Link href={`/products/${product.slug}`} className="group block">
       <div
         className="relative overflow-hidden mb-4"
-        style={{ aspectRatio: "3/4", backgroundColor: "#F5F0E8" }}
+        style={{ aspectRatio: "3/4", backgroundColor: "#F5F0E8", padding: "1.5rem" }}
       >
         <Image
           src={product.imageUrl}
           alt={product.name}
           fill
-          className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+          className="object-contain transition-transform duration-500 ease-out group-hover:scale-105"
+          style={{ padding: "1rem" }}
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-          unoptimized={product.imageUrl.startsWith("https://")}
+          unoptimized={product.imageUrl.startsWith("https://") || product.imageUrl.startsWith("/images/products/")}
         />
         {!product.inStock && (
           <div className="absolute inset-0 bg-white/60 flex items-center justify-center">
@@ -116,7 +117,7 @@ function CollectionProductCard({ product }: { product: Product }) {
         {product.name}
       </p>
       <p style={{ fontSize: "0.813rem", color: "#1B4332" }} className="font-medium">
-        {formatPrice(product.price)}
+        {formatProductPrice(product)}
       </p>
     </Link>
   );

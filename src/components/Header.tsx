@@ -12,28 +12,18 @@ export default function Header() {
       style={{ borderBottom: "1px solid #E8E4DC" }}
       className="fixed top-0 left-0 right-0 z-50 bg-white"
     >
-      {/* Top announcement bar */}
-      <div
-        style={{ backgroundColor: "#1B4332", color: "#F5F0E8" }}
-        className="text-center py-2"
+      {/* Main navigation — same 4rem padding as page content */}
+      <nav
+        style={{ padding: "0.875rem 4rem" }}
+        className="flex items-center justify-between relative"
       >
-        <p
-          style={{ fontSize: "0.625rem", letterSpacing: "0.18em" }}
-          className="uppercase font-medium"
-        >
-          Complimentary shipping on orders over ฿3,000 — Thailand
-        </p>
-      </div>
-
-      {/* Main navigation */}
-      <nav className="flex items-center justify-between px-6 py-4 relative">
         {/* Left nav */}
-        <div className="hidden md:flex items-center gap-8 flex-1">
+        <div className="hidden md:flex items-center gap-7 flex-1">
           <Link href="/collections" className="nav-item">Collections</Link>
+          <Link href="/charm-builder" className="nav-item">Charm Bar</Link>
           <Link href="/rings" className="nav-item">Rings</Link>
           <Link href="/necklaces" className="nav-item">Necklaces</Link>
           <Link href="/bracelets" className="nav-item">Bracelets</Link>
-          <Link href="/earrings" className="nav-item">Earrings</Link>
         </div>
 
         {/* Mobile hamburger */}
@@ -63,7 +53,7 @@ export default function Header() {
               style={{
                 fontFamily: "var(--font-inter)",
                 fontSize: "1.125rem",
-                letterSpacing: "0.35em",
+                letterSpacing: "0.38em",
                 fontWeight: "700",
                 textTransform: "uppercase",
                 color: "#0A0A0A",
@@ -76,18 +66,20 @@ export default function Header() {
 
         {/* Right actions */}
         <div className="hidden md:flex items-center gap-6 flex-1 justify-end">
+          <Link href="/earrings" className="nav-item">Earrings</Link>
           <Link href="/about" className="nav-item">About</Link>
+          <div style={{ width: 1, height: 14, backgroundColor: "#E0DACB" }} />
           <button
             onClick={() => setSearchOpen(!searchOpen)}
-            className="nav-item flex items-center gap-1"
+            className="nav-icon-btn"
             aria-label="Search"
           >
             <SearchIcon />
           </button>
-          <button className="nav-item relative" aria-label="Wishlist">
+          <button className="nav-icon-btn" aria-label="Wishlist">
             <HeartIcon />
           </button>
-          <button className="nav-item relative" aria-label="Cart">
+          <button className="nav-icon-btn relative" aria-label="Cart">
             <BagIcon />
             <span
               style={{
@@ -117,8 +109,12 @@ export default function Header() {
       {/* Search bar */}
       {searchOpen && (
         <div
-          style={{ borderTop: "1px solid #E8E4DC", borderBottom: "1px solid #E8E4DC" }}
-          className="px-6 py-3 flex items-center gap-3 animate-in slide-in-from-top duration-200"
+          style={{
+            borderTop: "1px solid #E8E4DC",
+            borderBottom: "1px solid #E8E4DC",
+            padding: "0.875rem 4rem",
+          }}
+          className="flex items-center gap-3 animate-in slide-in-from-top duration-200"
         >
           <SearchIcon />
           <input
@@ -148,17 +144,18 @@ export default function Header() {
           style={{ borderTop: "1px solid #E8E4DC" }}
           className="md:hidden absolute left-0 right-0 bg-white shadow-lg z-50"
         >
-          {["Collections", "Rings", "Necklaces", "Bracelets", "Earrings", "About"].map((item) => (
+          {["Collections", "Charm Bar", "Rings", "Necklaces", "Bracelets", "Earrings", "About"].map((item) => (
             <Link
               key={item}
-              href={`/${item.toLowerCase()}`}
+              href={`/${item.toLowerCase().replace(" ", "-")}`}
               onClick={() => setMenuOpen(false)}
               style={{
                 fontSize: "0.75rem",
                 letterSpacing: "0.15em",
                 borderBottom: "1px solid #E8E4DC",
+                padding: "1rem 4rem",
               }}
-              className="block px-6 py-4 uppercase font-medium hover:bg-stone-50 transition-colors"
+              className="block uppercase font-medium hover:bg-stone-50 transition-colors"
             >
               {item}
             </Link>
@@ -169,7 +166,7 @@ export default function Header() {
       <style jsx>{`
         .nav-item {
           font-size: 0.688rem;
-          letter-spacing: 0.12em;
+          letter-spacing: 0.16em;
           text-transform: uppercase;
           font-weight: 500;
           color: #0A0A0A;
@@ -180,6 +177,14 @@ export default function Header() {
           padding: 0;
         }
         .nav-item:hover {
+          opacity: 0.5;
+        }
+        .nav-icon-btn {
+          color: #0A0A0A;
+          transition: opacity 0.2s ease;
+          cursor: pointer;
+        }
+        .nav-icon-btn:hover {
           opacity: 0.5;
         }
       `}</style>

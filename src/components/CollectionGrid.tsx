@@ -1,13 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getFeaturedProducts, formatPrice } from "@/lib/products";
+import { getFeaturedProducts, formatProductPrice } from "@/lib/products";
 import { Product } from "@/lib/types";
 
 export default async function CollectionGrid() {
   const products = await getFeaturedProducts();
 
   return (
-    <section className="py-20 px-6">
+    <section className="py-20" style={{ padding: "5rem 4rem" }}>
       {/* Section header */}
       <div
         style={{ borderTop: "1px solid #E8E4DC", borderBottom: "1px solid #E8E4DC" }}
@@ -49,15 +49,16 @@ function ProductCard({ product }: { product: Product }) {
       {/* Image */}
       <div
         className="relative overflow-hidden mb-4"
-        style={{ aspectRatio: "3/4", backgroundColor: "#F5F0E8" }}
+        style={{ aspectRatio: "3/4", backgroundColor: "#F5F0E8", padding: "1.5rem" }}
       >
         <Image
           src={product.imageUrl}
           alt={product.name}
           fill
-          className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+          className="object-contain transition-transform duration-500 ease-out group-hover:scale-105"
+          style={{ padding: "1rem" }}
           sizes="(max-width: 768px) 50vw, 25vw"
-          unoptimized={product.imageUrl.startsWith("https://drive.google.com") || product.imageUrl.startsWith("https://lh3")}
+          unoptimized={product.imageUrl.startsWith("https://drive.google.com") || product.imageUrl.startsWith("https://lh3") || product.imageUrl.startsWith("/images/products/")}
         />
 
         {/* Out of stock overlay */}
@@ -105,7 +106,7 @@ function ProductCard({ product }: { product: Product }) {
           {product.name}
         </p>
         <p style={{ fontSize: "0.813rem", color: "#1B4332" }} className="font-medium">
-          {formatPrice(product.price)}
+          {formatProductPrice(product)}
         </p>
       </div>
     </Link>
