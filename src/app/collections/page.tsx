@@ -27,8 +27,7 @@ export default async function CollectionsPage({
       <main className="flex-1" style={{ paddingTop: "61px" }}>
         {/* Page title */}
         <div
-          style={{ borderBottom: "1px solid #E8E4DC" }}
-          className="pt-12 pb-6" style={{ padding: "3rem 4rem 1.5rem" }}
+          style={{ borderBottom: "1px solid #E8E4DC", padding: "3rem 4rem 1.5rem" }}
         >
           <h1
             style={{ fontSize: "0.75rem", letterSpacing: "0.25em" }}
