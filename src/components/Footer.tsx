@@ -66,10 +66,10 @@ export default function Footer() {
             {[
               ["New Arrivals", "/collections"],
               ["Charm Bar", "/charm-builder"],
-              ["Rings", "/rings"],
-              ["Necklaces", "/necklaces"],
-              ["Bracelets", "/bracelets"],
-              ["Earrings", "/earrings"],
+              ["Rings", "/collections?category=Rings"],
+              ["Necklaces", "/collections?category=Necklaces"],
+              ["Bracelets", "/collections?category=Bracelets"],
+              ["Earrings", "/collections?category=Earrings"],
             ].map(([label, href]) => (
               <li key={label}>
                 <Link

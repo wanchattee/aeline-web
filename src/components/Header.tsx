@@ -21,10 +21,10 @@ export default function Header() {
         <div className="hidden md:flex items-center gap-7 flex-1">
           <Link href="/collections" className="nav-item">Collections</Link>
           <Link href="/charm-builder" className="nav-item">Charm Bar</Link>
-          <Link href="/rings" className="nav-item">Rings</Link>
-          <Link href="/necklaces" className="nav-item">Necklaces</Link>
-          <Link href="/bracelets" className="nav-item">Bracelets</Link>
-          <Link href="/earrings" className="nav-item">Earrings</Link>
+          <Link href="/collections?category=Rings" className="nav-item">Rings</Link>
+          <Link href="/collections?category=Necklaces" className="nav-item">Necklaces</Link>
+          <Link href="/collections?category=Bracelets" className="nav-item">Bracelets</Link>
+          <Link href="/collections?category=Earrings" className="nav-item">Earrings</Link>
         </div>
 
         {/* Mobile hamburger */}
@@ -144,10 +144,18 @@ export default function Header() {
           style={{ borderTop: "1px solid #E8E4DC" }}
           className="md:hidden absolute left-0 right-0 bg-white shadow-lg z-50"
         >
-          {["Collections", "Charm Bar", "Rings", "Necklaces", "Bracelets", "Earrings", "About"].map((item) => (
+          {[
+            { label: "Collections", href: "/collections" },
+            { label: "Charm Bar", href: "/charm-builder" },
+            { label: "Rings", href: "/collections?category=Rings" },
+            { label: "Necklaces", href: "/collections?category=Necklaces" },
+            { label: "Bracelets", href: "/collections?category=Bracelets" },
+            { label: "Earrings", href: "/collections?category=Earrings" },
+            { label: "About", href: "/about" },
+          ].map(({ label, href }) => (
             <Link
-              key={item}
-              href={`/${item.toLowerCase().replace(" ", "-")}`}
+              key={label}
+              href={href}
               onClick={() => setMenuOpen(false)}
               style={{
                 fontSize: "0.75rem",
@@ -157,7 +165,7 @@ export default function Header() {
               }}
               className="block uppercase font-medium hover:bg-stone-50 transition-colors"
             >
-              {item}
+              {label}
             </Link>
           ))}
         </div>
