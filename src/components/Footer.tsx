@@ -40,13 +40,13 @@ export default function Footer() {
 
           {/* Social icons */}
           <div style={{ display: "flex", gap: "1rem", marginTop: "1.25rem" }}>
-            <a href="#" aria-label="Instagram" style={{ color: "#0A0A0A", opacity: 0.7 }} className="hover:opacity-100 transition-opacity">
+            <a href="https://www.instagram.com/aeline.c" target="_blank" rel="noopener noreferrer" aria-label="Instagram" style={{ color: "#0A0A0A", opacity: 0.7 }} className="hover:opacity-100 transition-opacity">
               <InstagramIcon />
             </a>
             <a href="https://line.me/ti/p/~@aelinec" target="_blank" rel="noopener noreferrer" aria-label="LINE" style={{ color: "#0A0A0A", opacity: 0.7 }} className="hover:opacity-100 transition-opacity">
               <LineIcon />
             </a>
-            <a href="#" aria-label="Facebook" style={{ color: "#0A0A0A", opacity: 0.7 }} className="hover:opacity-100 transition-opacity">
+            <a href="https://www.facebook.com/profile.php?id=61563070916816" target="_blank" rel="noopener noreferrer" aria-label="Facebook" style={{ color: "#0A0A0A", opacity: 0.7 }} className="hover:opacity-100 transition-opacity">
               <FacebookIcon />
             </a>
           </div>
