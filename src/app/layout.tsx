@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "AELINE.C — Fine Jewelry",
+  title: "AELINE C — Fine Jewelry",
   description: "Handcrafted fine jewelry with intention. Timeless pieces for the discerning.",
 };
 

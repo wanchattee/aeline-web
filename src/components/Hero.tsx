@@ -16,7 +16,7 @@ export default function Hero() {
     }}>
       <Image
         src="/images/hero_coffee.jpg"
-        alt="Aeline.c — Fine jewelry, Bangkok"
+        alt="Aeline C — Fine jewelry, Bangkok"
         fill
         priority
         style={{ objectFit: "cover", objectPosition: "center 30%" }}

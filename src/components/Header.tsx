@@ -59,7 +59,7 @@ export default function Header() {
                 color: "#0A0A0A",
               }}
             >
-              AELINE.C
+              AELINE C
             </span>
           </Link>
         </div>

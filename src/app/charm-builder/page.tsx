@@ -91,7 +91,7 @@ export default function CharmBuilderPage() {
         }}>
           <Image
             src="/images/hero_coffee.jpg"
-            alt="Aeline.c Charm Bar Bracelet"
+            alt="Aeline C Charm Bar Bracelet"
             fill
             priority
             style={{ objectFit: "cover", objectPosition: "center 30%" }}

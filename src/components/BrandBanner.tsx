@@ -6,7 +6,7 @@ export default function BrandBanner() {
     <section className="w-full relative overflow-hidden" style={{ height: "60vh", minHeight: "400px" }}>
       <Image
         src="/images/product6.jpg"
-        alt="Aeline.c brand"
+        alt="Aeline C brand"
         fill
         className="object-cover"
       />

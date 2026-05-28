@@ -19,7 +19,7 @@ export default function Footer() {
             fontWeight: 700,
             color: "#0A0A0A",
           }} className="uppercase block">
-            AELINE.C
+            AELINE C
           </span>
           <div style={{
             width: 28,
@@ -194,7 +194,7 @@ export default function Footer() {
         backgroundColor: "#EFE9DC",
       }}>
         <p style={{ fontSize: "0.625rem", letterSpacing: "0.12em", color: "#8B8472" }}>
-          © 2025 AELINE.C · Crafted with care in Bangkok
+          © 2025 AELINE C · Crafted with care in Bangkok
         </p>
         <div style={{ display: "flex", gap: "2rem" }}>
           {["Privacy Policy", "Terms of Service", "Cookie Policy"].map((item) => (
