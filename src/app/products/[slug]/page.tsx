@@ -35,7 +35,7 @@ export default async function ProductPage({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
             {/* Image */}
-            <div className="relative" style={{ aspectRatio: "1/1", backgroundColor: "#FAF7F2" }}>
+            <div className="relative" style={{ aspectRatio: "1/1", backgroundColor: "#FFFFFF" }}>
               <Image
                 src={product.imageUrl}
                 alt={product.name}

@@ -49,7 +49,7 @@ function ProductCard({ product }: { product: Product }) {
       {/* Image */}
       <div
         className="relative overflow-hidden mb-4"
-        style={{ aspectRatio: "1/1", backgroundColor: "#FAF7F2" }}
+        style={{ aspectRatio: "1/1", backgroundColor: "#FFFFFF" }}
       >
         <Image
           src={product.imageUrl}
