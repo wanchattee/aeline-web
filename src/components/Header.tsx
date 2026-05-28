@@ -24,6 +24,7 @@ export default function Header() {
           <Link href="/rings" className="nav-item">Rings</Link>
           <Link href="/necklaces" className="nav-item">Necklaces</Link>
           <Link href="/bracelets" className="nav-item">Bracelets</Link>
+          <Link href="/earrings" className="nav-item">Earrings</Link>
         </div>
 
         {/* Mobile hamburger */}
@@ -66,7 +67,6 @@ export default function Header() {
 
         {/* Right actions */}
         <div className="hidden md:flex items-center gap-6 flex-1 justify-end">
-          <Link href="/earrings" className="nav-item">Earrings</Link>
           <Link href="/about" className="nav-item">About</Link>
           <div style={{ width: 1, height: 14, backgroundColor: "#E0DACB" }} />
           <button
