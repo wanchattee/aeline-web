@@ -1,4 +1,10 @@
-export type Category = "Rings" | "Necklaces" | "Bracelets" | "Earrings" | "All";
+export type Category =
+  | "Rings"
+  | "Necklaces"
+  | "Bracelets"
+  | "Earrings"
+  | "Charms"
+  | "All";
 
 export interface Product {
   id: string;
@@ -12,4 +18,6 @@ export interface Product {
   inStock: boolean;
   featured: boolean;
   collectionName?: string;
+  material?: string;      // e.g. "Sterling Silver", "18k Gold-filled" — optional
+  tags?: string[];        // sub-category tags — e.g. ["Hearts"], ["Food"] for charms
 }

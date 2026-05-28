@@ -4,30 +4,31 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import {
   getAllCharms,
-  getCharmCategories,
-  formatCharmPrice,
-  charmLineOrderUrl,
-  Charm,
-  CharmCategory,
-} from "@/lib/charms";
+  getCharmTags,
+  formatProductPrice,
+  productLineOrderUrl,
+} from "@/lib/products";
+import { Product } from "@/lib/types";
 
 export default async function CharmBuilderPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{ tag?: string }>;
 }) {
   const params = await searchParams;
-  const activeCategory = (params.category as CharmCategory) ?? "All";
+  const activeTag = params.tag ?? "All";
 
-  const [allCharms, categories] = await Promise.all([
+  const [allCharms, tags] = await Promise.all([
     getAllCharms(),
-    getCharmCategories(),
+    getCharmTags(),
   ]);
 
   const filtered =
-    activeCategory === "All"
+    activeTag === "All"
       ? allCharms
-      : allCharms.filter((c) => c.category === activeCategory);
+      : allCharms.filter((c) => c.tags?.includes(activeTag));
+
+  const tagOptions = ["All", ...tags];
 
   return (
     <>
@@ -92,32 +93,34 @@ export default async function CharmBuilderPage({
           </nav>
         </div>
 
-        {/* ── CATEGORY FILTER ── */}
-        <div style={{
-          padding: "1.5rem clamp(1.5rem, 5vw, 4rem)",
-          borderBottom: "1px solid #E8E4DC",
-          backgroundColor: "#fff",
-        }}>
-          <div className="flex gap-6 overflow-x-auto pb-1">
-            {categories.map((cat) => (
-              <Link
-                key={cat}
-                href={cat === "All" ? "/charm-builder" : `/charm-builder?category=${cat}`}
-                style={{
-                  fontSize: "0.688rem",
-                  letterSpacing: "0.12em",
-                  paddingBottom: "4px",
-                  borderBottom: activeCategory === cat ? "1px solid #0A0A0A" : "1px solid transparent",
-                  color: activeCategory === cat ? "#0A0A0A" : "#6B6B6B",
-                  whiteSpace: "nowrap",
-                }}
-                className="uppercase font-medium hover:text-black transition-colors"
-              >
-                {cat}
-              </Link>
-            ))}
+        {/* ── TAG FILTER (only if there are tags) ── */}
+        {tags.length > 0 && (
+          <div style={{
+            padding: "1.5rem clamp(1.5rem, 5vw, 4rem)",
+            borderBottom: "1px solid #E8E4DC",
+            backgroundColor: "#fff",
+          }}>
+            <div className="flex gap-6 overflow-x-auto pb-1">
+              {tagOptions.map((tag) => (
+                <Link
+                  key={tag}
+                  href={tag === "All" ? "/charm-builder" : `/charm-builder?tag=${tag}`}
+                  style={{
+                    fontSize: "0.688rem",
+                    letterSpacing: "0.12em",
+                    paddingBottom: "4px",
+                    borderBottom: activeTag === tag ? "1px solid #0A0A0A" : "1px solid transparent",
+                    color: activeTag === tag ? "#0A0A0A" : "#6B6B6B",
+                    whiteSpace: "nowrap",
+                  }}
+                  className="uppercase font-medium hover:text-black transition-colors"
+                >
+                  {tag}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* ── RESULTS COUNT ── */}
         <div style={{ padding: "1rem clamp(1.5rem, 5vw, 4rem)" }}>
@@ -181,10 +184,10 @@ export default async function CharmBuilderPage({
   );
 }
 
-function CharmCard({ charm }: { charm: Charm }) {
+function CharmCard({ charm }: { charm: Product }) {
   return (
     <a
-      href={charmLineOrderUrl(charm)}
+      href={productLineOrderUrl(charm)}
       target="_blank"
       rel="noopener noreferrer"
       className="group block"
@@ -210,14 +213,16 @@ function CharmCard({ charm }: { charm: Charm }) {
           </div>
         )}
       </div>
-      <p style={{ fontSize: "0.625rem", letterSpacing: "0.1em", color: "#6B6B6B" }} className="uppercase mb-1">
-        {charm.material}
-      </p>
+      {charm.material && (
+        <p style={{ fontSize: "0.625rem", letterSpacing: "0.1em", color: "#6B6B6B" }} className="uppercase mb-1">
+          {charm.material}
+        </p>
+      )}
       <p style={{ fontSize: "0.813rem" }} className="font-medium mb-1 group-hover:opacity-60 transition-opacity">
         {charm.name}
       </p>
       <p style={{ fontSize: "0.813rem", color: "#1B4332" }} className="font-medium">
-        {formatCharmPrice(charm.price)}
+        {formatProductPrice(charm)}
       </p>
     </a>
   );

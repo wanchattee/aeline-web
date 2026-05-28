@@ -6,6 +6,7 @@ import { getAllProducts, formatProductPrice } from "@/lib/products";
 import { Category, Product } from "@/lib/types";
 
 const CATEGORIES: Category[] = ["All", "Rings", "Necklaces", "Bracelets", "Earrings"];
+// Note: "Charms" excluded — they live on their own page at /charm-builder
 
 export default async function CollectionsPage({
   searchParams,
@@ -16,10 +17,12 @@ export default async function CollectionsPage({
   const activeCategory = (params.category as Category) ?? "All";
 
   const allProducts = await getAllProducts();
+  // Exclude Charms — they have their own dedicated page at /charm-builder
+  const browsableProducts = allProducts.filter((p) => p.category !== "Charms");
   const filtered =
     activeCategory === "All"
-      ? allProducts
-      : allProducts.filter((p) => p.category === activeCategory);
+      ? browsableProducts
+      : browsableProducts.filter((p) => p.category === activeCategory);
 
   return (
     <>
