@@ -1,8 +1,8 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Image from "next/image";
 import Link from "next/link";
-import { getAllProducts, formatProductPrice } from "@/lib/products";
+import ProductCard from "@/components/ProductCard";
+import { getAllProducts } from "@/lib/products";
 import { Category, Product } from "@/lib/types";
 
 const CATEGORIES: Category[] = ["All", "Rings", "Necklaces", "Bracelets", "Earrings"];
@@ -80,7 +80,7 @@ export default async function CollectionsPage({
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-12">
               {filtered.map((product) => (
-                <CollectionProductCard key={product.id} product={product} />
+                <ProductCard key={product.id} product={product} />
               ))}
             </div>
           )}
@@ -100,41 +100,4 @@ function searchProducts(products: Product[], query: string): Product[] {
       .toLowerCase();
     return terms.every((t) => haystack.includes(t));
   });
-}
-
-function CollectionProductCard({ product }: { product: Product }) {
-  return (
-    <Link href={`/products/${product.slug}`} className="group block">
-      <div
-        className="relative overflow-hidden mb-4"
-        style={{ aspectRatio: "1/1", backgroundColor: "#FFFFFF" }}
-      >
-        <Image
-          src={product.imageUrl}
-          alt={product.name}
-          fill
-          className="object-contain transition-transform duration-500 ease-out group-hover:scale-105"
-          style={{ padding: "0.5rem" }}
-          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-          unoptimized={product.imageUrl.startsWith("https://") || product.imageUrl.startsWith("/images/products/")}
-        />
-        {!product.inStock && (
-          <div className="absolute inset-0 bg-white/60 flex items-center justify-center">
-            <span style={{ fontSize: "0.625rem", letterSpacing: "0.2em", color: "#6B6B6B" }} className="uppercase font-medium">
-              Sold Out
-            </span>
-          </div>
-        )}
-      </div>
-      <p style={{ fontSize: "0.625rem", letterSpacing: "0.1em", color: "#6B6B6B" }} className="uppercase mb-1">
-        {product.category}
-      </p>
-      <p style={{ fontSize: "0.813rem" }} className="font-medium mb-1 group-hover:opacity-60 transition-opacity">
-        {product.name}
-      </p>
-      <p style={{ fontSize: "0.813rem", color: "#1B4332" }} className="font-medium">
-        {formatProductPrice(product)}
-      </p>
-    </Link>
-  );
 }

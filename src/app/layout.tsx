@@ -9,6 +9,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  // Base for relative URLs in metadata (e.g. product images in Open Graph)
+  metadataBase: new URL("https://aeline-web.vercel.app"),
   title: {
     default: "AELINE C — Fine Jewelry",
     template: "%s — AELINE C",

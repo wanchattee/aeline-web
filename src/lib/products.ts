@@ -226,6 +226,9 @@ async function fetchFromSheets(): Promise<Product[]> {
         price: Number(row.price) || 0,
         priceTo: row.price_to ? Number(row.price_to) || undefined : undefined,
         imageUrl: String(row.image_url ?? "/images/product1.jpg"),
+        images: row.images
+          ? String(row.images).split(/[\n,]/).map((u) => u.trim()).filter(Boolean)
+          : undefined,
         description: String(row.description ?? ""),
         slug: String(row.slug ?? row.name?.toLowerCase().replace(/\s+/g, "-") ?? ""),
         inStock: String(row.in_stock).toUpperCase() === "TRUE",
@@ -265,6 +268,33 @@ export async function getProductBySlug(slug: string): Promise<Product | undefine
   return all.find((p) => p.slug === slug);
 }
 
+// ── Product detail helpers ──────────────────────────────────────────────────
+// All gallery images, main image first, duplicates removed
+export function getProductImages(p: Product): string[] {
+  return Array.from(new Set([p.imageUrl, ...(p.images ?? [])]));
+}
+
+// "You might also like" — closest matches first, in-stock before sold out.
+// Charms suggest other charms (shared tag first); everything else stays out of Charms.
+export async function getRelatedProducts(p: Product, limit = 4): Promise<Product[]> {
+  const all = await fetchFromSheets();
+  const isCharm = p.category === "Charms";
+  const pool = all.filter((o) => o.id !== p.id && (o.category === "Charms") === isCharm);
+
+  const score = (o: Product) =>
+    (o.category === p.category ? 2 : 0) +
+    (o.collectionName && o.collectionName === p.collectionName ? 1 : 0) +
+    (o.material && o.material === p.material ? 1 : 0) +
+    (o.tags?.some((t) => p.tags?.includes(t)) ? 2 : 0) +
+    (o.inStock ? 4 : 0);
+
+  return pool
+    .map((o, i) => ({ o, s: score(o), i }))
+    .sort((a, b) => b.s - a.s || a.i - b.i)
+    .slice(0, limit)
+    .map(({ o }) => o);
+}
+
 // ── Charm-specific helpers ──────────────────────────────────────────────────
 export async function getAllCharms(): Promise<Product[]> {
   const all = await fetchFromSheets();
@@ -290,7 +320,7 @@ export function formatProductPrice(p: Pick<Product, "price" | "priceTo">): strin
   return formatPrice(p.price);
 }
 
-// ── LINE order link for a single product (used by charm cards) ──────────────
+// ── LINE order link for a single product (charm cards + product page) ───────
 export function productLineOrderUrl(p: Product): string {
   const lines = [
     `สวัสดีค่ะ/ครับ — สนใจสั่งซื้อ:`,
