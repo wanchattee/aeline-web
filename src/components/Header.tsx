@@ -2,10 +2,21 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
+  const router = useRouter();
   const [searchOpen, setSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [query, setQuery] = useState("");
+
+  function submitSearch(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const q = query.trim();
+    if (!q) return;
+    setSearchOpen(false);
+    router.push(`/collections?q=${encodeURIComponent(q)}`);
+  }
 
   return (
     <header
@@ -21,10 +32,11 @@ export default function Header() {
         <div className="hidden md:flex items-center gap-7 flex-1">
           <Link href="/collections" className="nav-item">Collections</Link>
           <Link href="/charm-builder" className="nav-item">Charm Bar</Link>
-          <Link href="/collections?category=Rings" className="nav-item">Rings</Link>
-          <Link href="/collections?category=Necklaces" className="nav-item">Necklaces</Link>
-          <Link href="/collections?category=Bracelets" className="nav-item">Bracelets</Link>
-          <Link href="/collections?category=Earrings" className="nav-item">Earrings</Link>
+          {/* Category links collide with the centered logo below ~1400px — Collections tabs cover them there */}
+          <Link href="/collections?category=Rings" className="nav-item hidden min-[1400px]:inline">Rings</Link>
+          <Link href="/collections?category=Necklaces" className="nav-item hidden min-[1400px]:inline">Necklaces</Link>
+          <Link href="/collections?category=Bracelets" className="nav-item hidden min-[1400px]:inline">Bracelets</Link>
+          <Link href="/collections?category=Earrings" className="nav-item hidden min-[1400px]:inline">Earrings</Link>
         </div>
 
         {/* Mobile hamburger */}
@@ -76,23 +88,6 @@ export default function Header() {
           >
             <SearchIcon />
           </button>
-          <button className="nav-icon-btn" aria-label="Wishlist">
-            <HeartIcon />
-          </button>
-          <button className="nav-icon-btn relative" aria-label="Cart">
-            <BagIcon />
-            <span
-              style={{
-                backgroundColor: "#1B4332",
-                color: "#fff",
-                fontSize: "0.5rem",
-                lineHeight: 1,
-              }}
-              className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 rounded-full flex items-center justify-center font-bold"
-            >
-              0
-            </span>
-          </button>
         </div>
 
         {/* Mobile right icons */}
@@ -100,15 +95,14 @@ export default function Header() {
           <button onClick={() => setSearchOpen(!searchOpen)} aria-label="Search">
             <SearchIcon />
           </button>
-          <button className="relative" aria-label="Cart">
-            <BagIcon />
-          </button>
         </div>
       </nav>
 
       {/* Search bar */}
       {searchOpen && (
-        <div
+        <form
+          onSubmit={submitSearch}
+          role="search"
           style={{
             borderTop: "1px solid #E8E4DC",
             borderBottom: "1px solid #E8E4DC",
@@ -119,7 +113,10 @@ export default function Header() {
           <SearchIcon />
           <input
             autoFocus
-            type="text"
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            aria-label="Search products"
             placeholder="WHAT ARE YOU LOOKING FOR?"
             style={{
               fontSize: "0.75rem",
@@ -129,13 +126,14 @@ export default function Header() {
             className="flex-1 outline-none bg-transparent placeholder:text-gray-400 uppercase"
           />
           <button
+            type="button"
             onClick={() => setSearchOpen(false)}
             style={{ fontSize: "0.625rem", letterSpacing: "0.1em" }}
             className="uppercase text-gray-400 hover:text-black transition-colors"
           >
             Close
           </button>
-        </div>
+        </form>
       )}
 
       {/* Mobile menu */}
@@ -205,24 +203,6 @@ function SearchIcon() {
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <circle cx="11" cy="11" r="8" />
       <path d="M21 21l-4.35-4.35" />
-    </svg>
-  );
-}
-
-function HeartIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-    </svg>
-  );
-}
-
-function BagIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-      <line x1="3" y1="6" x2="21" y2="6" />
-      <path d="M16 10a4 4 0 0 1-8 0" />
     </svg>
   );
 }

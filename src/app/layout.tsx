@@ -9,7 +9,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "AELINE C — Fine Jewelry",
+  title: {
+    default: "AELINE C — Fine Jewelry",
+    template: "%s — AELINE C",
+  },
   description: "Handcrafted fine jewelry with intention. Timeless pieces for the discerning.",
 };
 

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -101,11 +100,8 @@ export default function Footer() {
           <ul style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
             {[
               ["Our Story", "/about"],
-              ["Craftsmanship", "/craftsmanship"],
-              ["Sustainability", "/sustainability"],
               ["Care Guide", "/care"],
               ["Size Guide", "/size-guide"],
-              ["Journal", "/journal"],
             ].map(([label, href]) => (
               <li key={label}>
                 <Link
@@ -194,19 +190,16 @@ export default function Footer() {
         backgroundColor: "#EFE9DC",
       }}>
         <p style={{ fontSize: "0.625rem", letterSpacing: "0.12em", color: "#8B8472" }}>
-          © 2025 AELINE C · Crafted with care in Bangkok
+          © {new Date().getFullYear()} AELINE C · Crafted with care in Bangkok
         </p>
         <div style={{ display: "flex", gap: "2rem" }}>
-          {["Privacy Policy", "Terms of Service", "Cookie Policy"].map((item) => (
-            <Link
-              key={item}
-              href="#"
-              style={{ fontSize: "0.625rem", letterSpacing: "0.12em", color: "#8B8472" }}
-              className="uppercase hover:text-black transition-colors"
-            >
-              {item}
-            </Link>
-          ))}
+          <Link
+            href="/privacy"
+            style={{ fontSize: "0.625rem", letterSpacing: "0.12em", color: "#8B8472" }}
+            className="uppercase hover:text-black transition-colors"
+          >
+            Privacy Policy
+          </Link>
         </div>
       </div>
     </footer>

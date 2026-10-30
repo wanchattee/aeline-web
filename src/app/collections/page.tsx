@@ -11,16 +11,19 @@ const CATEGORIES: Category[] = ["All", "Rings", "Necklaces", "Bracelets", "Earri
 export default async function CollectionsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{ category?: string; q?: string }>;
 }) {
   const params = await searchParams;
-  const activeCategory = (params.category as Category) ?? "All";
+  const query = params.q?.trim() ?? "";
+  // While searching, no category tab is active
+  const activeCategory: Category | null = query ? null : ((params.category as Category) ?? "All");
 
   const allProducts = await getAllProducts();
   // Exclude Charms — they have their own dedicated page at /charm-builder
   const browsableProducts = allProducts.filter((p) => p.category !== "Charms");
-  const filtered =
-    activeCategory === "All"
+  const filtered = query
+    ? searchProducts(allProducts, query) // search covers Charms too
+    : activeCategory === "All"
       ? browsableProducts
       : browsableProducts.filter((p) => p.category === activeCategory);
 
@@ -36,7 +39,7 @@ export default async function CollectionsPage({
             style={{ fontSize: "0.75rem", letterSpacing: "0.25em" }}
             className="uppercase font-medium mb-6"
           >
-            All Collections
+            {query ? `Search — “${query}”` : "All Collections"}
           </h1>
 
           {/* Category filter tabs */}
@@ -72,7 +75,7 @@ export default async function CollectionsPage({
         <div style={{ padding: "0 clamp(1.5rem, 5vw, 4rem) 4rem" }}>
           {filtered.length === 0 ? (
             <p className="text-center text-gray-400 py-32 text-sm tracking-widest uppercase">
-              No products in this category
+              {query ? "No products match your search" : "No products in this category"}
             </p>
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-12">
@@ -86,6 +89,17 @@ export default async function CollectionsPage({
       <Footer />
     </>
   );
+}
+
+function searchProducts(products: Product[], query: string): Product[] {
+  const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+  return products.filter((p) => {
+    const haystack = [p.name, p.category, p.material, p.collectionName, p.description, ...(p.tags ?? [])]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
+    return terms.every((t) => haystack.includes(t));
+  });
 }
 
 function CollectionProductCard({ product }: { product: Product }) {
