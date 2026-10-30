@@ -14,10 +14,14 @@
   --gray-light: #D4D0C8;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Reset lives in the base layer — unlayered, it overrode Tailwind's
+   spacing utilities (mb-*, py-*, space-y-*) everywhere */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 }
 
 html {

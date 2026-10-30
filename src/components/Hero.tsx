@@ -75,7 +75,7 @@ export default function Hero() {
         </p>
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center" }}>
           <Link
-            href="/collections"
+            href="/collections?collection=The%20Eden%20Collection"
             style={{
               backgroundColor: "#F5F0E8",
               color: "#0A0A0A",
